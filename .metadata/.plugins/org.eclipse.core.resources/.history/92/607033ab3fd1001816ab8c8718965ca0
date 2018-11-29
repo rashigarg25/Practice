@@ -1,0 +1,6 @@
+package com.practice.designpattern.objectpool;
+
+public class ObjectPool {
+
+	private Map<CustomObject, Long> used, free;
+}

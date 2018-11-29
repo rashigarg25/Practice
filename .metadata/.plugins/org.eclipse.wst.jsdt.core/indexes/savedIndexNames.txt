@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+C:\Accolite\workspace\practice\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+1096283366.index
+3096208862.index
+4230989282.index
+4122501758.index
+1717978489.index
+806851485.index

@@ -1,0 +1,22 @@
+package com.practice.designpattern.objectpool;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class ObjectPool {
+
+	private Map<CustomObject, Long> used, free;
+	private long expireTime;
+
+	public ObjectPool() {
+		expireTime = 50000;
+		used = new HashMap<>();
+		free = new HashMap<>();
+	}
+
+	public synchronized CustomObject getObject() {
+
+		return null;
+	}
+
+}

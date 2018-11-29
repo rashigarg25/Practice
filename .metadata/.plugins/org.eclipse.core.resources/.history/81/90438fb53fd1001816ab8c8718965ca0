@@ -1,0 +1,14 @@
+package com.practice.designpattern.objectpool;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class ObjectPool {
+
+	private Map<CustomObject, Long> used, free;
+
+	public ObjectPool() {
+		this.used = new HashMap<>();
+
+	}
+}

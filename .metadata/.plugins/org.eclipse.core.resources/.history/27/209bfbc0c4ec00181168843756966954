@@ -1,0 +1,123 @@
+
+package com.homeunion.investor.web.controller.performance;
+
+import java.util.Collections;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.homeunion.investor.common.search.CriteriaBuilder;
+import com.homeunion.investor.config.constants.ConfigConstants;
+import com.homeunion.investor.dto.performance.FinancialTransactionDetailDTO;
+import com.homeunion.investor.dto.performance.IncomeStatementDTO;
+import com.homeunion.investor.dto.performance.PriceAvmInfoDTO;
+import com.homeunion.investor.dto.performance.PropertyLeaseInfoDTO;
+import com.homeunion.investor.dto.performance.TransactionDTO;
+import com.homeunion.investor.performance.domain.IncomeStatement;
+import com.homeunion.investor.performance.domain.LpoaInvestorDeposit;
+import com.homeunion.investor.performance.domain.PriceAvmInfo;
+import com.homeunion.investor.performance.domain.PropertyLeaseInfo;
+import com.homeunion.investor.performance.domain.Transaction;
+import com.homeunion.investor.performance.service.EmbraceLpoaService;
+import com.homeunion.investor.performance.service.PerformanceService;
+import com.homeunion.investor.response.performance.LpoaInvestorDepositResponse;
+import com.homeunion.investor.response.performance.PerformanceReportResponse;
+import com.homeunion.investor.transaction.domain.UserPropertySummary;
+import com.homeunion.investor.transaction.service.TransactionService;
+import com.homeunion.investor.web.controller.BaseController;
+
+@RestController
+@RequestMapping(ConfigConstants.INVESTOR_API)
+public class PerformanceController extends BaseController {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(PerformanceController.class);
+	@Autowired
+	private TransactionService transactionService;
+	@Autowired
+	private PerformanceService performanceService;
+	@Autowired
+	private EmbraceLpoaService embraceLpoaService;
+
+	@RequestMapping(value = "/performance/report/{memberId}", method = RequestMethod.GET)
+	
+	@PreAuthorize("(hasAnyAuthority('"
+	              + ConfigConstants.AUTHORITY_INVESTOR
+	              + "', '"
+	              + ConfigConstants.AUTHORITY_EMBRACE
+	              + "') and #memberId == principal.memberId) or hasAuthority('"
+	              + ConfigConstants.AUTHORITY_SUPER_ADMIN
+	              + "')")
+	public PerformanceReportResponse getPerformanceReport(@PathVariable("memberId") String memberId) {
+
+		LOGGER.info("Rest API /performance/report/{} invoked with data '{}'", memberId);
+		final long start = System.currentTimeMillis();
+		PerformanceReportResponse response = new PerformanceReportResponse();
+		try {
+			//fetch the purchased properties 
+			List<UserPropertySummary> userProperties = transactionService.getUserProperties(memberId);
+			//fetch the lease info
+			List<PropertyLeaseInfo> propertiesLeaseInfo = performanceService.getPropertiesLeaseInfo(userProperties);
+			//fetch the income statement
+			List<IncomeStatement> incomeStatement = performanceService.getIncomeStatement(memberId);
+			//fetch the transactions
+			List<Transaction> transactions = performanceService.getTransactionHistory(memberId);
+			List<String> propertyIds = new CriteriaBuilder().build().applyAndExtractDistinct(incomeStatement, "propertyId", String.class);
+			List<PriceAvmInfo> priceAvmInfo = Collections.emptyList();
+			if ( !CollectionUtils.isEmpty(propertyIds)) {
+				priceAvmInfo = performanceService.getPriceAvm(propertyIds);
+			}
+			//fetch the distributions
+			List<Transaction> distributions = performanceService.getDistributionHistory(memberId);
+			//set and return
+			response.setPropertiesLeaseInfo(viewMapper.mapList(propertiesLeaseInfo, PropertyLeaseInfoDTO.class));
+			response.setIncomeStatement(viewMapper.mapList(incomeStatement, IncomeStatementDTO.class));
+			response.setTransactions(viewMapper.mapList(transactions, TransactionDTO.class));
+			response.setPriceAvm(viewMapper.mapList(priceAvmInfo, PriceAvmInfoDTO.class));
+			response.setDistributions(viewMapper.mapList(distributions, TransactionDTO.class));
+			final long end = System.currentTimeMillis();
+			LOGGER.info("Returning successful response for /performance/report/{}. Time: {}ms", memberId, end - start);
+		} catch (Exception e) {
+			LOGGER.warn("Exception occurred while serving Rest API /performance/report/{}.", memberId);
+			prepareFailureResponse(response, e);
+		}
+		return response;
+	}
+
+	@RequestMapping(value = "/performance/embrace/lpoa/{memberId}", method = RequestMethod.GET)
+	public LpoaInvestorDepositResponse getLpoaForAMember(@PathVariable("memberId") String memberId) {
+
+		LOGGER.info("Rest API /performance/embrace/lpoa/{} invoked.", memberId);
+		final long start = System.currentTimeMillis();
+		LpoaInvestorDepositResponse response = new LpoaInvestorDepositResponse();
+		try {
+			LpoaInvestorDeposit investorDeposit = embraceLpoaService.getLpoaInvestorDeposit(memberId);
+			mapLpoaSuccessResponse(response, investorDeposit);
+			final long end = System.currentTimeMillis();
+			LOGGER.info("Returning successful response for /performance/embrace/lpoa/{}. Time: {}ms", memberId, end - start);
+		} catch (Exception e) {
+			LOGGER.warn("Exception occurred while serving Rest API /performance/embrace/lpoa/{}.", memberId);
+			prepareFailureResponse(response, e);
+		}
+		return response;
+	}
+
+	private void mapLpoaSuccessResponse(LpoaInvestorDepositResponse response, LpoaInvestorDeposit investorDeposit) {
+
+		response.setFinancialTransactionId(investorDeposit.getFinancialTransactionId());
+		response.setDescription(investorDeposit.getDescription());
+		response.setTransactionDate(investorDeposit.getTransactionDate());
+		response.setCreditAmount(investorDeposit.getCreditAmount());
+		response.setDebitAmount(investorDeposit.getDebitAmount());
+		response.setRequestedAmount(investorDeposit.getRequestedAmount());
+		response.setStatus(investorDeposit.getStatus());
+		response.setFinancialTransactionDetails(viewMapper.mapList(investorDeposit.getFinancialTransactionDetails(), FinancialTransactionDetailDTO.class));
+	}
+}

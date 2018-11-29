@@ -1,0 +1,22 @@
+
+package com.practice.problems;
+
+import java.util.Arrays;
+
+public class SortArray012 {
+
+	private static int[] arr = new int[] { 0, 1, 2, 0, 1, 2, 0, 1, 2, 0 };
+
+	public static void main(String... args) {
+
+		int midValue = 1;
+		int i = 0, j = 0;
+		int k = arr.length;
+		while (i <= k) {
+			if (arr[j] == midValue) {
+				j++;
+			}
+		}
+		Arrays.toString(arr);
+	}
+}

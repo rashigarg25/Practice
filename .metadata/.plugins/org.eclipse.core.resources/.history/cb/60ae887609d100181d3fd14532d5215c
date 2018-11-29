@@ -1,0 +1,18 @@
+package com.practice.designpattern.factory;
+
+public class AnimalFactory {
+
+	public Animal getAnimal(String animal) {
+
+		Animal animal = null;
+		if ("cat".equals(animal)) {
+			animal = new Cat();
+		} else if ("dog".equals(animal)) {
+			animal = new Dog();
+		} else if ("lion".equals(animal)) {
+			animal = new Lion();
+		}
+		return animal;
+	}
+
+}

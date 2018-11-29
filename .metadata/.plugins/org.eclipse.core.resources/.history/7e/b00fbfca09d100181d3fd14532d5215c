@@ -1,0 +1,13 @@
+package com.practice.designpattern.factory;
+
+public class FactoryMethodDemo {
+
+	public static void main(String[] args) {
+
+	}
+	
+	private static void speaks() {
+		
+		
+	}
+}

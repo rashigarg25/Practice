@@ -1,0 +1,13 @@
+package com.practice.designpattern.factory;
+
+public class FactoryMethodDemo {
+
+	public static void main(String[] args) {
+
+		AnimalFactory animalFactory = new AnimalFactory();
+	}
+
+	private static void speak(Animal animal) {
+		animal.speak();
+	}
+}

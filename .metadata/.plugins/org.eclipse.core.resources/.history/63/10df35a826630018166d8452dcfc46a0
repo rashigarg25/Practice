@@ -1,0 +1,28 @@
+package com.practice.java8;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class FailFastIterator {
+
+	public static void main(String[] args) {
+
+		ArrayList<Integer> al = new ArrayList<>();
+		al.add(1);
+		al.add(1);
+		al.add(1);
+		al.add(1);
+		al.forEach(e -> System.out.println(e));
+
+		Iterator<Integer> itr = al.iterator();
+		int sum = 0;
+		while (itr.hasNext()) {
+			sum += itr.next();
+			itr.remove();
+		}
+		
+		al.forEach(e -> System.out.println(e));
+
+	}
+
+}

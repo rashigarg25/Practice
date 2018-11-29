@@ -1,0 +1,28 @@
+package com.practice.java8;
+
+import java.util.Iterator;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+public class FailSafeIterator {
+
+	public static void main(String[] args) {
+
+		Map<String, String> map = new ConcurrentHashMap<>();
+
+		map.put("1", "one");
+		map.put("2", "two");
+		map.put("3", "three");
+		map.put("4", "four");
+		map.put("5", "five");
+
+		map.keySet().forEach((k) -> System.out.println("Key: " + k + " ,Value: " + map.get(k)));
+
+		Iterator<String> itr= map.keySet().iterator();
+		
+		while(itr.hasNext()) {
+			itr.next();
+			
+		}
+	}
+}

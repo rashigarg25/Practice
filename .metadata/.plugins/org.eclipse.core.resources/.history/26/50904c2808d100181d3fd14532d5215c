@@ -1,0 +1,7 @@
+package com.practice.designpattern.factory;
+
+interface Animal {
+	
+	speak();
+
+}

@@ -1,0 +1,18 @@
+package com.practice.problems;
+
+/*		/\
+	   /  \
+	  / /\ \
+	 / /  \ \
+	/ / /\ \ \
+   / / /  \ \ \
+
+		/\
+	   /  \
+	  / /\ \
+	 / /  \ \
+	/ / /\ \ \    */
+
+public class Pattern1 {
+
+}

@@ -1,0 +1,11 @@
+package com.digitalriver.report;
+
+public class PaymentPageApiOperations {
+
+	public static void main(String[] args) {
+
+		String folderName = "";
+
+	}
+
+}

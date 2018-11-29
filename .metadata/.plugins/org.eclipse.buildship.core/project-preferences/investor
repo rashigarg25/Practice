@@ -1,0 +1,9 @@
+#
+#Wed Nov 21 15:35:09 IST 2018
+linkedResources=
+managedNatures=
+classpath=<?xml version\="1.0" encoding\="UTF-8"?>\n<classpath>\n</classpath>\n
+subprojectPaths=asset-class-services;common-services;config;dto;evault-services;external-services;nir-services;performance-services;portfolio-services;property-services;transaction-services;user-services;web;wishlist-services
+derivedResources=.gradle;build;asset-class-services/build;common-services/build;config/build;dto/build;evault-services/build;external-services/build;nir-services/build;performance-services/build;portfolio-services/build;property-services/build;transaction-services/build;user-services/build;web/build;wishlist-services/build
+managedBuilders=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><commands/>
+buildDir=build

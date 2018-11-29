@@ -1,0 +1,15 @@
+package com.practice.designpattern.objectpool;
+
+public class CustomObject {
+
+	private int value;
+
+	public int getValue() {
+		return value;
+	}
+
+	public void setValue(int value) {
+		this.value = value;
+	}
+
+}

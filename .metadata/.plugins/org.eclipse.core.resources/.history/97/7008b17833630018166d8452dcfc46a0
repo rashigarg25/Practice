@@ -1,0 +1,16 @@
+package com.practice.java8;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+public class FailSafeIterator {
+
+	
+	public static void main(String[] args) {
+		
+		Map<String, String> map = new ConcurrentHashMap<>();
+		
+		
+		
+	}
+}

@@ -1,0 +1,11 @@
+
+package com.practice.problems;
+
+public class SortArray012 {
+
+	private int[] arr = new int[] { 0, 1, 2, 0, 1, 2, 0, 1, 2, 0 };
+
+	public static void main(String... args) {
+
+	}
+}

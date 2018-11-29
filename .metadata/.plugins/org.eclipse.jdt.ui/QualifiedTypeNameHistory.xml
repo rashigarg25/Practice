@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="com.digitalriver.report.CieloReportConvertor"/>
+<fullyQualifiedTypeName name="java.io.FileWriter"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="com.digitalriver.report.ProcessByteFileConvertor"/>
+<fullyQualifiedTypeName name="com.practice.trees.BinaryTree"/>
+<fullyQualifiedTypeName name="java.util.Optional"/>
+<fullyQualifiedTypeName name="com.practice.optional.Pojo1"/>
+<fullyQualifiedTypeName name="java.lang.FunctionalInterface"/>
+<fullyQualifiedTypeName name="java.lang.Override"/>
+<fullyQualifiedTypeName name="java.lang.Math"/>
+<fullyQualifiedTypeName name="com.practice.chess.EntityFactory"/>
+<fullyQualifiedTypeName name="sun.font.CreatedFontTracker"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="java.lang.Comparable"/>
+<fullyQualifiedTypeName name="com.practice.chess.ChessSquare"/>
+<fullyQualifiedTypeName name="com.practice.chess.EntityMove"/>
+<fullyQualifiedTypeName name="org.omg.SendingContext.RunTime"/>
+<fullyQualifiedTypeName name="java.lang.RuntimeException"/>
+<fullyQualifiedTypeName name="com.flipkart.Color"/>
+<fullyQualifiedTypeName name="com.flipkart.exception.InvalidInputException"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.text.ParsePosition"/>
+<fullyQualifiedTypeName name="com.flipkart.Position"/>
+<fullyQualifiedTypeName name="com.flipkart.ChessSquare"/>
+<fullyQualifiedTypeName name="com.flipkart.exception.InvalidMoveException"/>
+<fullyQualifiedTypeName name="com.flipkart.exception.SameColorAttackException"/>
+<fullyQualifiedTypeName name="com.flipkart.Entity"/>
+<fullyQualifiedTypeName name="java.lang.Character"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.util.Iterator"/>
+</qualifiedTypeNameHistroy>

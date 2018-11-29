@@ -1,0 +1,48 @@
+package com.digitalriver.report;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public class PaymentPageApiOperations {
+
+	public static void main(String[] args) {
+
+		String folderName = "";
+
+		File folder = new File(folderName);
+
+		List<File> files = Arrays.asList(folder.listFiles()).stream().filter(f -> f.isFile())
+				.collect(Collectors.toList());
+
+		Iterator<File> iterator = files.iterator();
+
+		while (iterator.hasNext()) {
+
+			File f = iterator.next();
+			try (Stream<String> lines = Files.lines(Paths.get(f.getAbsolutePath()));
+					PrintWriter output = new PrintWriter("" + f.getName())) {
+
+				StringBuilder fileData = new StringBuilder();
+				lines.forEach(l -> fileData.append(l + "\n"));
+
+				String processedString = fileData.toString().replaceAll(
+						"<script>\r\n" + "   if ( top != self ) { top.location=self.location; }\r\n" + "</script>", "");
+
+				output.write(fileData.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}
+
+	}
+
+}

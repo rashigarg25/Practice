@@ -1,0 +1,45 @@
+package com.practice.prod.consumer;
+
+import java.util.Queue;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+public class Producer implements Runnable {
+
+	Lock lock = new ReentrantLock();
+	Condition isFull = lock.newCondition();
+
+	private Queue<Integer> ll;
+
+	public Producer(Queue<Integer> ll) {
+		this.ll = ll;
+	}
+
+	@Override
+	public void run() {
+		produce();
+	}
+
+	private void produce() {
+		synchronized (ll) {
+			int counter = 0;
+			try {
+				while (true) {
+					if (ll.size() == 5) {
+						wait();
+					}
+					System.out.println("Producing value -> " + counter);
+					ll.add(counter);
+					counter++;
+					Thread.sleep(500);
+					notifyAll();
+					if (counter == 10)
+						break;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}
